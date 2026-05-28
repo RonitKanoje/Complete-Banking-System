@@ -54,6 +54,64 @@ We are excited to have you with us!`;
   `;
 
   await sendEmail(userEmail, subject, text, html);
-}   
+}
 
-module.exports = { sendRegistrationEmail };
+async function sendTransactionEmail(userEmail, name, amount, toAccount) {
+  const subject = "Transaction Successful!";
+
+  const text = `Hello ${name},
+
+Your transaction of ₹${amount} to account ${toAccount} was completed successfully.
+
+Thank you for using Banking System.`;
+
+  const html = `
+    <p>Hello ${name},</p>
+
+    <p>
+      Your transaction of <b>₹${amount}</b> 
+      to account <b>${toAccount}</b> 
+      was completed successfully.
+    </p>
+
+    <p>Thank you for using <b>Banking System</b>.</p>
+  `;
+
+  await sendEmail(userEmail, subject, text, html);
+}
+
+async function sendTransactionFailureEmail(userEmail, name, amount, toAccount) {
+  const subject = "Transaction Failed!";
+
+  const text = `Hello ${name},
+
+We were unable to process your transaction of ₹${amount} to account ${toAccount}.
+
+Please try again later or contact support if the issue persists.
+
+Thank you for using Banking System.`;
+
+  const html = `
+    <p>Hello ${name},</p>
+
+    <p>
+      We were unable to process your transaction of 
+      <b>₹${amount}</b> 
+      to account <b>${toAccount}</b>.
+    </p>
+
+    <p>
+      Please try again later or contact support if the issue persists.
+    </p>
+
+    <p>Thank you for using <b>Banking System</b>.</p>
+  `;
+
+  await sendEmail(userEmail, subject, text, html);
+}
+
+module.exports = {
+  sendRegistrationEmail,
+  sendTransactionEmail,
+  sendTransactionFailureEmail,
+};
